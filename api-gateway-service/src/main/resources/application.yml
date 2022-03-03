@@ -1,0 +1,42 @@
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes:
+      - id: couponService
+        uri: lb://COUPON-SERVICE
+        predicates: Path=/v1/coupons/**
+      - id: productService
+        uri: lb://PRODUCT-SERVICE
+        predicates: Path=/v1/products/**   
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+  #security:
+   # oauth2:
+    #  client:
+     #   registration:
+      #    github:
+       #     client-id: 47b0570522ae387b30c9
+        #    client-secret: 694c30429ca601cbb3c507d833ec769719df7492
+            
+ # datasource:
+  #  url: jdbc:mysql://localhost:3306/microDemoDb
+   # username: root
+    #password: root
+  #jpa:
+   # hibernate:
+    #  ddl-auto: update
+#  security:
+ #   user:
+  #    name: admin
+   #   password: admin123
